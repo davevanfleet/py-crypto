@@ -10,5 +10,8 @@ This project is a python script that is used to automate cryptocurrency trading.
 
 ## Usage
 
-This script was built to be run as a daily cron job. Running the `app.py` script is all that is required.
-The list of coins selected is fairly conservative.  If you would like to add more coins for your installation simply add them to the `COINS` list in `app.py` using the abbreviations from Kraken.
+This script was built to be run as a daily cron job. Running the `app.py` script is all that is required.  
+
+The list of coins selected is fairly conservative.  If you would like to add more coins for your installation simply add them to the `COINS` list in `app.py` using the abbreviations from Kraken.  
+
+The default purchase is set to 10 USD.  This can be adjusted by changing the `DEFAULT_PURCHASE_USD` float in `kraken_requests.py`
