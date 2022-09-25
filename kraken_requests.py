@@ -17,7 +17,7 @@ api_sec = os.environ.get("KRAKEN_API_SEC_KEY")
 api_key = os.environ.get("KRAKEN_API_PUB_KEY")
 api_url = "https://api.kraken.com"
 
-DEFAULT_PURCHASE_USD = 10.00
+DEFAULT_PURCHASE_USD = 30.00
 
 def get_kraken_signature(urlpath, data, secret):
     postdata = urllib.parse.urlencode(data)

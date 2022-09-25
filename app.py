@@ -27,9 +27,9 @@ def main():
         rsi = rsi_calculator.calc(ohlc_data)
         if rsi < 40:
             orders["buy"].append(coin)
-        elif rsi > 60:
+        elif rsi > 55:
             orders["sell"].append(coin)
-    
+
     current_holdings = kraken_requests.get_current_holdings()
     for coin in orders['buy']:
         purchase_volume = kraken_requests.calcualte_purchase_volume(coin["pair"])
@@ -37,8 +37,8 @@ def main():
             kraken_requests.buy_pair(coin["pair"], purchase_volume)
     
     for coin in orders['sell']:
-        if coin['asset'] in current_holdings:
-            kraken_requests.sell_coin(coin["pair"], current_holdings[coin["asset"]])
+        if coin['asset'] in current_holdings and coin['asset'] and float(current_holdings[coin['asset']]) > 0.0:
+            kraken_requests.sell_pair(coin["pair"], current_holdings[coin["asset"]])
 
 if __name__ == "__main__":
     main()
