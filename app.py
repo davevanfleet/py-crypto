@@ -18,19 +18,25 @@ COINS = [
 ]
 
 def main():
+    current_holdings = kraken_requests.get_current_holdings()
+
     orders = {
         "buy": [],
         "sell": []
     }
     for coin in COINS:
+        diff = kraken_requests.calcualte_current_value(coin["pair"], current_holdings[coin["asset"]]) - kraken_requests.DEFAULT_PURCHASE_USD
         ohlc_data = kraken_requests.get_ohlc_data(coin["pair"])
         rsi = rsi_calculator.calc(ohlc_data)
         if rsi < 40:
             orders["buy"].append(coin)
-        elif rsi > 55:
+        if diff > kraken_requests.DEFAULT_PURCHASE_USD * 0.25:
             orders["sell"].append(coin)
-
-    current_holdings = kraken_requests.get_current_holdings()
+        if rsi > 55:
+            orders["sell"].append(coin)
+        
+    print(orders["sell"])
+    
     for coin in orders['buy']:
         purchase_volume = kraken_requests.calcualte_purchase_volume(coin["pair"])
         if coin['asset'] not in current_holdings or float(current_holdings[coin["asset"]]) < purchase_volume / 2:

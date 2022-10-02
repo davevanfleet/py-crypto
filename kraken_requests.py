@@ -49,6 +49,12 @@ def calcualte_purchase_volume(pair):
     last_trade = float(body['result'][pair][-1][0])
     return DEFAULT_PURCHASE_USD / last_trade
 
+def calcualte_current_value(pair, holding):
+    res = requests.get(f'{api_url}/0/public/Trades?pair={pair}')
+    body = res.json()
+    last_trade = float(body['result'][pair][-1][0])
+    return last_trade * float(holding)
+
 #####################
 # PRIVATE ENDPOINTS #
 #####################
